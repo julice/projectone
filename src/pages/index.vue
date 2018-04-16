@@ -29,16 +29,15 @@
     </div>
 
     <div class="index-right">
-      <div class="swiper-container">
+      <!-- <div class="swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for = "item in swiperdata"><img :src = "item.img" alt=""></div>
         </div>
-        <!-- 如果需要分页器 -->
         <div class="swiper-pagination"></div>
-        <!-- 如果需要导航按钮 -->
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
-      </div>
+      </div> -->
+      <slidershow :slides = "slider"></slidershow>
       <div class="index-board-list">
           <div class="index-board-item" v-for = "(item,index) in boardList" :class="['index-board-'+index,{'line-last':index%2 != 0}]">
           <span></span>
@@ -60,10 +59,14 @@
 </template>
 
 <script>
-import Swiper from 'swiper'
-import 'swiper/dist/css/swiper.min.css'
+// import Swiper from 'swiper'
+// import 'swiper/dist/css/swiper.min.css'
+import slidershow from '../pages/slideshow'
 export default {
   name: 'layout',
+  components: {
+    slidershow
+  },
   // created () {
   //   this.$http.get("getList").then(function(data){
   //     console.log("ok")
@@ -72,12 +75,19 @@ export default {
   //   })
   // },
   created(){
-    this.$http.get('getList').then(function(data){
-      console.log("dd");
-    },function(err){
+    this.$http.get('api/posts').then((res)=>{
+      this.newsList = res.data
+    },(err)=>{
       console.log(err)
     })
   },
+  // created(){
+  //   this.$http.get('getList').then(function(data){
+  //     console.log("dd");
+  //   },function(err){
+  //     console.log(err)
+  //   })
+  // },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -102,19 +112,22 @@ export default {
         }
       },
       newsList:[
-        {title:'小米上市',url:'http://www.baidu.com'},
-        {title:'顺丰上市',url:'http://www.baidu.com'},
-        {title:'美团收购ofo',url:'http://www.baidu.com'},
-        {title:'爱奇艺上市',url:'http://www.baidu.com'},
       ],
       
-      swiperdata:[
-        {link:'',img:require('../assets/1.jpg')},
-        {link:'',img:require('../assets/2.jpg')},
-        {link:'',img:require('../assets/3.jpg')},
-        {link:'',img:require('../assets/4.jpg')},
-        {link:'',img:require('../assets/5.jpg')},
+      // swiperdata:[
+      //   {link:'',img:require('../assets/1.jpg')},
+      //   {link:'',img:require('../assets/2.jpg')},
+      //   {link:'',img:require('../assets/3.jpg')},
+      //   {link:'',img:require('../assets/4.jpg')},
+      //   {link:'',img:require('../assets/5.jpg')},
+      // ],
+      slides:[
+        {src:require('../assets/1.jpg'),title:'xxx1',href:'detail/analysis'},
+        {src:require('../assets/2.jpg'),title:'xxx2',href:'detail/account'},
+        {src:require('../assets/3.jpg'),title:'xxx3',href:'detail/forecast'},
+        {src:require('../assets/4.jpg'),title:'xxx4',href:'detail/'}
       ],
+
       boardList:[
         {title:'开放产品',description:'开放产品是一款开放产品',saleout:false},
         {title:'品牌营销',description:'品牌营销帮助你的产品更好地找到定位',saleout:false},

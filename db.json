@@ -1,0 +1,12 @@
+{
+  "posts": [
+    { "id": 1, "title": "新闻第一条", "url": "http://www.baidu.com" },
+    { "id": 2, "title": "新闻第二条", "url": "http://www.baidu.com" },
+    { "id": 3, "title": "新闻第三条", "url": "http://www.baidu.com" },
+    { "id": 4, "title": "新闻第四条", "url": "http://www.baidu.com" }
+  ],
+  "comments": [
+    { "id": 1, "title": "新闻第一条", "url": "http://www.baidu.com"}
+  ],
+  "profile": { "name": "typicode" }
+}
