@@ -37,7 +37,7 @@
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
       </div> -->
-      <slideshow :slides = "slides" :initime = "initime" @onchange = "change()"></slideshow>
+      <slideshow :slides = "slides" :initime = "initime"></slideshow>
       <div class="index-board-list">
           <div class="index-board-item" v-for = "(item,index) in boardList" :class="['index-board-'+index,{'line-last':index%2 != 0}]">
           <span></span>
@@ -53,6 +53,8 @@
     </div>
 
     <div class="clear"></div>
+
+    
    
     
   </div>
@@ -62,6 +64,7 @@
 // import Swiper from 'swiper'
 // import 'swiper/dist/css/swiper.min.css'
 import slideshow from '../pages/slideshow'
+
 
 export default {
   name: 'layout',
@@ -139,9 +142,7 @@ export default {
     }
   },
   methods: {
-    change(){
-      console.log("aa")
-    }
+    
   }
   // mounted() {
   //   var mySwiper = new Swiper('.swiper-container', {

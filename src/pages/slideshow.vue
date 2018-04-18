@@ -57,7 +57,6 @@ export default {
       setTimeout(()=>{
         this.isshow = true;
         this.nowIndex = index;
-        this.$emit("onchange",index)
       },10)
     },
     runIniv(){
@@ -70,7 +69,7 @@ export default {
     }
   },
   mounted () {
-    this.runIniv();
+    // this.runIniv();
   }
   
   
