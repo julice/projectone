@@ -37,7 +37,7 @@
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
       </div> -->
-      <slideshow :slides = "slides" :initime = "initime" @onchange = "change()"></slideshow>
+      <!-- <slidershow :slides = "slides" :inv = "slidespeed"></slidershow> -->
       <div class="index-board-list">
           <div class="index-board-item" v-for = "(item,index) in boardList" :class="['index-board-'+index,{'line-last':index%2 != 0}]">
           <span></span>
@@ -61,13 +61,12 @@
 <script>
 // import Swiper from 'swiper'
 // import 'swiper/dist/css/swiper.min.css'
-import slideshow from '../pages/slideshow'
-
+// import slidershow from '../pages/slideshow'
 export default {
   name: 'layout',
-  components:{
-    slideshow
-  },
+  // components: {
+  //   slidershow
+  // },
   // created () {
   //   this.$http.get("getList").then(function(data){
   //     console.log("ok")
@@ -92,7 +91,7 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      initime:2000,
+      slidespeed:2000,
       productList:{
         game:{
           title:'pc产品',
@@ -124,10 +123,10 @@ export default {
       //   {link:'',img:require('../assets/5.jpg')},
       // ],
       slides:[
-        {src:require('../assets/1.jpg'),title:'this is first img',href:'detail/anilysis'},
-        {src:require('../assets/2.jpg'),title:'this is second img',href:'detail/account'},
-        {src:require('../assets/3.jpg'),title:'this is third img',href:'detail/forecast'},
-        {src:require('../assets/4.jpg'),title:'this is fourth img',href:'detail/'},
+        {src:require('../assets/1.jpg'),title:'xxx1',href:'detail/analysis'},
+        {src:require('../assets/2.jpg'),title:'xxx2',href:'detail/account'},
+        {src:require('../assets/3.jpg'),title:'xxx3',href:'detail/forecast'},
+        {src:require('../assets/4.jpg'),title:'xxx4',href:'detail/'}
       ],
 
       boardList:[
@@ -138,11 +137,6 @@ export default {
       ]
     }
   },
-  methods: {
-    change(){
-      console.log("aa")
-    }
-  }
   // mounted() {
   //   var mySwiper = new Swiper('.swiper-container', {
   //     pagination : '.swiper-pagination', 

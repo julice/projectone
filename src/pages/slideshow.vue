@@ -1,54 +1,96 @@
 <template>
-  <div class="slideshow">
-    
-    <p>ddd</p>
-   
-    
+  <div class="slideshow" @mouseover="clearIniv" @mouseout="runIniv">
+    <div class="slideImg">
+        <a :href="slides[nowIndex].href">
+          <transition name="slide-trans">
+            <img :src="slides[nowIndex].src" alt="" v-if="isshow">
+          </transition>
+          <transition name="slide-trans-old">
+            <img :src="slides[nowIndex].src" alt="" v-if="!isshow">
+          </transition>
+        </a>
+    </div>
+    <div class="slideBtn">
+      <a href="javascript:;" class="slidePrev" @click="goto(prevIndex)">&lt;</a>
+      <a href="javascript:;" class="slideNext" @click="goto(nextIndex)">&gt;</a>
+    </div>
+    <div class="slidetext">
+      <h2>{{slides[nowIndex].title}}</h2>
+    </div>
+    <div class="iconBtn">
+      <a href="javascript:;" v-for="(item,index) in slides" :class="{on:index ==nowIndex}" @click="goto(index)">{{index}}</a>
+    </div>
   </div>
 </template>
 
 <script>
-import Swiper from 'swiper'
 export default {
   name: 'slideshow',
-  data () {
-    return {
-     
+  props:['slides','initime'],
+  data(){
+    return{
+      nowIndex : 0,
+      isshow:true
     }
   },
-
+  computed: {
+    prevIndex(){
+      if(this.nowIndex===0){
+        return this.slides.length - 1
+      }
+      else{
+        return this.nowIndex - 1;
+      }
+    },
+    nextIndex(){
+      if(this.nowIndex === this.slides.length - 1){
+        return 0
+      }
+      else{
+        return this.nowIndex + 1
+      }
+    }
+  },
+  methods: {
+    goto(index){
+      this.isshow = false;
+      setTimeout(()=>{
+        this.isshow = true;
+        this.nowIndex = index;
+        this.$emit("onchange",index)
+      },10)
+    },
+    runIniv(){
+      this.iniv = setInterval(()=>{
+        this.goto(this.nextIndex)
+      },this.initime)
+    },
+    clearIniv(){
+      clearInterval(this.iniv)
+    }
+  },
+  mounted () {
+    this.runIniv();
+  }
+  
+  
+  
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.index-wrap{width: 1200px;margin: 10px auto 0;}
-.index-left{width: 280px;float: left;background: #fff;padding-bottom: 200px;}
-.index-left-block{width: 100%;}
-.index-left-block h2{font-size: 24px;font-weight: normal;line-height: 36px;color: #fff;background: #4fbe8d;padding: 10px 0;padding-left: 20px}
-.index-left-block h3{font-size: 20px;font-weight: normal;line-height: 36px;padding: 5px 0 5px 20px}
-.index-left-block ul{padding-left: 30px;padding-bottom: 10px;border-bottom: 1px solid #eee;}
-.index-left-block ul.noborder{border-bottom: 0;}
-.index-left-block ul li{line-height: 30px;font-size: 16px;}
-.index-left-block ul li a{color: #000}
-.index-left-block ul li a span.hot{color:#fff;background: #f00;display: inline-block;margin-left: 10px}
-
-.index-right{float: left;margin-left: 20px;width: 900px;}
-
-.swiper-container {width: 900px;height: 400px;margin-left: 0;}
-.swiper-container .swiper-slide img{width: 900px;height: 400px;display: block;}
-
-.index-board-list{margin-top: 10px;width: 900px;}
-.index-board-item{width: 420px;display: inline-block;padding:20px 0 20px 20px;background: #fff;margin-bottom: 20px;margin-right: 20px;}
-.line-last{margin-right: 0;}
-.index-board-item span{width: 100px;height: 100px;float: left;}
-.index-board-item-inner{padding-left: 120px;}
-.index-board-item h2{font-size: 20px;font-weight: bold;line-height: 36px;}
-.button{width: 100px;height: 30px;display: block;background: #4fbe8d;color: #fff;font-size: 16px;text-align: center;line-height: 30px;margin-top: 10px;}
-.index-board-0 span{background: url(../assets/icon/1.jpg) no-repeat center center}
-.index-board-1 span{background: url(../assets/icon/2.jpg) no-repeat center center}
-.index-board-2 span{background: url(../assets/icon/3.jpg) no-repeat center center}
-.index-board-3 span{background: url(../assets/icon/4.jpg) no-repeat center center}
-
+.slide-trans-enter-active{transition: all .5s}
+.slide-trans-enter{transform: translateX(900px)}
+.slide-trans-old-leave-active{transition: all .5s;transform: translateX(-900px)}
+.slideshow{width: 900px;height: 300px;position: relative;border: 1px solid #000;overflow: hidden;}
+.slideImg img{width: 100%;height: 300px;position: absolute;left: 0;top: 0;}
+a.slidePrev{width: 60px;height: 30px;font-size: 36px;color: #fff;font-weight: bold;font-family: "宋体";text-align: center;line-height: 30px;position: absolute;left: 0;top: 150px;}
+a.slideNext{width: 60px;height: 30px;font-size: 36px;color: #fff;font-weight: bold;font-family: "宋体";text-align: center;line-height: 30px;position: absolute;right: 0;top: 150px;}
+.slidetext{width: 100%;background: rgba(0,0,0,0.5);position: absolute;left: 0;bottom: 0;}
+.slidetext h2{padding-left: 20px;font-size: 16px;line-height: 32px;color: #fff;}
+.iconBtn{position: absolute;right: 15px;bottom: 0;}
+.iconBtn a{width: 30px;height: 32px;display: inline-block;line-height: 32px;color: #fff;text-align: center;opacity: .5}
+.iconBtn a.on{opacity: 1;}
 </style>
 
