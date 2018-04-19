@@ -8,5 +8,8 @@
   "comments": [
     { "id": 1, "title": "新闻第一条", "url": "http://www.baidu.com"}
   ],
-  "profile": { "name": "typicode" }
+  "profile": { "name": "typicode" },
+  "login":
+    {"name" : "zhangsan@","password":"dddd" }
+   
 }

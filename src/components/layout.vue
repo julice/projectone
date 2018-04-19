@@ -3,9 +3,18 @@
     <div class="app-head">
       <div class="app-head-inner">
         <div class="head-nav">
+          <p>
+            <router-link to="/" class="back">首页</router-link>
+          </p>
           <ul class="nav-list">
-            <li @click = "logdialog">登录</li>|
-            <li @click = "regdialog">注册</li>|
+            <li>{{username}}</li>
+            <div v-if = "username === ''">
+              <li @click = "logdialog">登录</li>|
+              <li @click = "regdialog">注册</li>|
+            </div>
+            <div v-else>
+               <li @click = "quit">退出</li>
+            </div>
             <li @click = "opendialog">关于</li>
           </ul>
         </div>
@@ -28,11 +37,11 @@
     </dialogwrap>
     <dialogwrap :isshow = "islogdialog" @onclick="closedialog('islogdialog')">
       <p>登录</p>
-      <logform></logform>
+      <logform @haslog = "onsuccess"></logform>
     </dialogwrap>
     <dialogwrap :isshow = "isregdialog" @onclick="closedialog('isregdialog')">
       <p>注册</p>
-      <regform></regform>
+      <regform @hasreg = "onregsuccess"></regform>
     </dialogwrap>
    
     
@@ -40,12 +49,15 @@
 </template>
 
 <script>
-import dialogwrap from '../pages/dialogwrap'
-import logform from '../pages/logform'
+import dialogwrap from '../components/dialogwrap'
+import logform from '../components/logform'
+import regform from '../components/regform'
+
+
 export default {
   name: 'layout',
   components:{
-    dialogwrap,logform
+    dialogwrap,logform,regform
   },
   data () {
     return {
@@ -53,6 +65,7 @@ export default {
       isshowdialog:false,
       islogdialog:false,
       isregdialog:false,
+      username:''
     }
   },
   methods:{
@@ -67,6 +80,18 @@ export default {
     },
     closedialog(attr){
       this[attr] = false
+    },
+    quit(){
+      this.username = ''
+    },
+    onsuccess(data){
+      this.username = data.name;
+      this.closedialog('islogdialog')
+      console.log(this.username)
+    },
+    onregsuccess(data){
+      // this.username = data.name;
+      this.closedialog('isregdialog')
     }
   }
  
@@ -102,8 +127,17 @@ body{font-family:'微软雅黑','宋体',Verdana,sans-serif;color:#444444;font-s
 
 .app-head{width: 100%;height: 75px;background: #000;color: #fff}
 .app-head-inner{width: 1280px;margin: 0 auto;}
-.app-head .head-nav{width: 200px;float: right;margin-right: 50px;margin-top: 12px;}
+.app-head .head-nav{width: 310px;float: right;margin-right: 50px;margin-top: 12px;}
 .app-head .head-nav li{display: inline-block;margin: 0 10px;font-size: 16px;line-height: 50px;cursor: pointer;}
+.app-head .head-nav div{display: inline-block;}
+.app-content{min-height: 800px;}
 .app-footer{width: 100%;height: 50px;background: rgba(0,0,0,0.5);color: #fff;text-align: center;}
 .app-footer p{padding-top: 14px;}
+
+.form p{margin-bottom: 30px;display: inline-block}
+.form p span{width: 80px;display: inline-block;}
+.form span.error{display: inline-block;color: #f00}
+.form p input{width: 300px;font-size: 16px;padding: 5px 10px;}
+.button{width: 60px;height: 30px;display: block;border-radius: 5px;margin-left: 80px;background:#5cb88f;color: #fff;line-height: 30px;text-align: center;}
+.back{position: absolute;left: 50px;top: 15px;color: #fff;padding: 10px 30px;}
 </style>

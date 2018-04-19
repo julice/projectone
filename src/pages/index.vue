@@ -45,7 +45,7 @@
             <h2>{{item.title}}</h2>
             <p>{{item.description}}</p>
             <div class="index-board-button">
-              <router-link class="button" :to="{path:'detail'}">立即购买</router-link>
+              <router-link class="button" :to="{path:'/orderlist'}">立即购买</router-link>
             </div>
           </div>
         </div>
@@ -63,7 +63,7 @@
 <script>
 // import Swiper from 'swiper'
 // import 'swiper/dist/css/swiper.min.css'
-import slideshow from '../pages/slideshow'
+import slideshow from '../components/slideshow'
 
 
 export default {
@@ -100,10 +100,10 @@ export default {
         game:{
           title:'pc产品',
           list:[
-            {name:'数据统计',url:'http://www.baidu.com'},
-            {name:'数据预测',url:'http://www.baidu.com',hot:true},
-            {name:'数据分析',url:'http://www.baidu.com'},
-            {name:'广告发布',url:'http://www.baidu.com'},
+            {name:'数据统计',url:'/detail/count'},
+            {name:'数据预测',url:'/detail/forecast',hot:true},
+            {name:'数据分析',url:'/detail/analysis'},
+            {name:'广告发布',url:'/detail/publish'},
           ]
         },
         app:{
