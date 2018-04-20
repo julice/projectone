@@ -10,12 +10,14 @@
     </div>
     <div class="detail-form">
       <div class="detail-form-left">
-        <p>购买数量</p>
+        <p>购买数量:<a href="javascript:;" class="reduceBtn" @click="reduceNum">-</a><span class="num">{{num}}</span><a href="javascript:;" class="addBtn" @click="addNum">+</a></p>
+        <p>产品类型：<select name="productlist" id=""><option v-for = "item in productlist" value="item.value">{{item.label}}</option></select></p>
+        <p>有效时间：<a type="button">一年</a><a type="button">两年</a><a type="button">三年</a></p>
       </div>
       <div class="detail-form-right">
-        <select name="anilysis" id="">
+        <!-- <select name="anilysis" id="">
           <option value=""></option>
-        </select>
+        </select> -->
       </div>
     </div>
   </div>
@@ -24,10 +26,28 @@
 <script>
 export default {
   name:"detail-analysis",
+  
   data(){
     return{
+      num:0,
+      productlist:[
+        {value:1,label:"数据分析"},
+        {value:2,label:"数据统计"},
+        {value:3,label:"数据查询"},
+        {value:4,label:"数据发布"},
+      ]
     }
   },
+  methods:{
+    reduceNum(){
+      if(this.num>0){
+        this.num = this.num - 1
+      }
+    },
+    addNum(){
+      this.num = this.num + 1;
+    }
+  }
   
  
  
@@ -39,6 +59,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.detail-form-left p{margin-bottom: 10px;}
+.reduceBtn{width: 25px;height: 25px;line-height: 25px;display: inline-block;text-align: center;color: #000;border: 1px solid #000;margin:0 10px;}
+.addBtn{width: 25px;height: 25px;line-height: 25px;display: inline-block;text-align: center;color: #000;border: 1px solid #000;margin:0 10px;}
+span.num{width: 25px;height: 25px;display: inline-block;text-align: center;}
+
+select{height: 30px;padding: 0 10px;font-size: 16px;line-height: 28px;}
+
+
 
 </style>
 
